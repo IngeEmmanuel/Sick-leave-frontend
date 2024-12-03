@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import AdminPage from "../pages/AdminPage";
+import IncapacityPage from "../pages/IncapacityPage";
 
 const MenuDropdown = () => {
   const [selectedRole, setSelectedRole] = useState("");
@@ -24,15 +25,20 @@ const MenuDropdown = () => {
               -- Seleccionar --
             </option>
             <option value="Administrador">Administrador</option>
-            <option value="Auxiliar">Auxiliar</option>
             <option value="Colaborador">Colaborador</option>
-            <option value="Recepcion">Recepción</option>
+            <option value="Abogado">Abogado</option>
+            <option value="Tesorero">Tesorero</option>
+            <option value="Recursos Humanos">Recursos Humanos</option>
+
           </select>
 
           {selectedRole && <LoginForm role={selectedRole} onLogin={handleLogin} />}
         </>
       ) : (
-        selectedRole === "Administrador" && <AdminPage />
+        <>
+          {selectedRole === "Administrador" && <AdminPage />}
+          {selectedRole === "Colaborador" && <IncapacityPage />}
+        </>
       )}
     </div>
   );

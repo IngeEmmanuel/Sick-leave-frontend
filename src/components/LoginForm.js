@@ -10,7 +10,13 @@ const LoginForm = ({ role, onLogin }) => {
     // Simular validación de credenciales
     if (role === "Administrador" && username === "admin@admin.com" && password === "1234") {
       onLogin(role);
-    } else {
+    } else if (role === "Auxiliar" && username === "admin@admin.com" && password === "1234") {
+      onLogin(role);
+    } else if (role === "Colaborador" && username === "admin@admin.com" && password === "1234") {
+      onLogin(role);
+    } else if (role === "Recepcion" && username === "admin@admin.com" && password === "1234") {
+      onLogin(role);
+    } else  {
       setError("Credenciales incorrectas. Inténtalo de nuevo.");
     }
   };
