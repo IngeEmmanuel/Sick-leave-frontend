@@ -1,14 +1,13 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const IncapacityForm = ({ onAddIncapacity }) => {
   const [newIncapacity, setNewIncapacity] = useState({
-    registerDate: new Date().toLocaleDateString(),
     startDate: "",
     epsOrArlId: "",
     registrarId: "",
-    incapacityId: "",
-    status: "No gestionada",
     link: "",
+    status: "No gestionada",
   });
 
   const handleInputChange = (e) => {
@@ -16,26 +15,27 @@ const IncapacityForm = ({ onAddIncapacity }) => {
     setNewIncapacity((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onAddIncapacity(newIncapacity);
-    setNewIncapacity({
-      registerDate: new Date().toLocaleDateString(),
-      startDate: "",
-      epsOrArlId: "",
-      registrarId: "",
-      incapacityId: "",
-      status: "No gestionada",
-      link: "",
-    });
+    try {
+      const response = await axios.post("http://localhost:5000/historias", newIncapacity);
+      onAddIncapacity(response.data);
+      alert("Incapacidad registrada con éxito.");
+      setNewIncapacity({
+        startDate: "",
+        epsOrArlId: "",
+        registrarId: "",
+        link: "",
+        status: "No gestionada",
+      });
+    } catch (error) {
+      console.error("Error al registrar la incapacidad:", error);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit} className="incapacity-form">
       <h2>Registrar Incapacidad</h2>
-      <label>
-        Fecha de Registro: <b>{newIncapacity.registerDate}</b>
-      </label>
       <label>
         Fecha de Inicio:
         <input
@@ -62,16 +62,6 @@ const IncapacityForm = ({ onAddIncapacity }) => {
           type="text"
           name="registrarId"
           value={newIncapacity.registrarId}
-          onChange={handleInputChange}
-          required
-        />
-      </label>
-      <label>
-        ID de Incapacidad:
-        <input
-          type="text"
-          name="incapacityId"
-          value={newIncapacity.incapacityId}
           onChange={handleInputChange}
           required
         />

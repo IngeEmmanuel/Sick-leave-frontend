@@ -1,0 +1,1 @@
+{"startDate":"2024-12-01","epsOrArlId":"123145","registrarId":"12312553","link":"https://fontawesome.com/icons/bars?f=classic&s=solid","status":"No gestionada","id":1,"fechaRegistro":"3/12/2024"}

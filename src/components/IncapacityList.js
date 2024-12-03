@@ -1,31 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-const IncapacityList = ({ incapacities }) => {
+const IncapacityList = () => {
+  const [incapacities, setIncapacities] = useState([]);
+
+  useEffect(() => {
+    const fetchIncapacities = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/historias");
+        setIncapacities(response.data);
+      } catch (error) {
+        console.error("Error al cargar las incapacidades:", error);
+      }
+    };
+
+    fetchIncapacities();
+  }, []);
+
   return (
     <div className="incapacity-list">
       <h2>Incapacidades Registradas</h2>
-      {incapacities.length === 0 ? (
-        <p>No hay incapacidades registradas.</p>
-      ) : (
-        <div className="cards-container">
-          {incapacities.map((incapacity, index) => (
-            <div key={index} className="card">
-              <p><b>Fecha de Registro:</b> {incapacity.registerDate}</p>
-              <p><b>Fecha de Inicio:</b> {incapacity.startDate}</p>
-              <p><b>ID EPS/ARL:</b> {incapacity.epsOrArlId}</p>
-              <p><b>Cédula Registrador:</b> {incapacity.registrarId}</p>
-              <p><b>ID Incapacidad:</b> {incapacity.incapacityId}</p>
-              <p><b>Estado:</b> {incapacity.status}</p>
-              <p>
-                <b>Documento:</b>{" "}
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fecha de Registro</th>
+            <th>Fecha de Inicio</th>
+            <th>ID EPS/ARL</th>
+            <th>Cédula Registrador</th>
+            <th>Estado</th>
+            <th>Documento</th>
+          </tr>
+        </thead>
+        <tbody>
+          {incapacities.map((incapacity) => (
+            <tr key={incapacity.id}>
+              <td>{incapacity.id}</td>
+              <td>{incapacity.fechaRegistro}</td>
+              <td>{incapacity.startDate}</td>
+              <td>{incapacity.epsOrArlId}</td>
+              <td>{incapacity.registrarId}</td>
+              <td>{incapacity.status}</td>
+              <td>
                 <a href={incapacity.link} target="_blank" rel="noopener noreferrer">
                   Ver Documento
                 </a>
-              </p>
-            </div>
+              </td>
+            </tr>
           ))}
-        </div>
-      )}
+        </tbody>
+      </table>
     </div>
   );
 };

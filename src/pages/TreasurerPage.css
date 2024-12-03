@@ -1,0 +1,46 @@
+.treasurer-page {
+    margin: 20px;
+  }
+  
+  .search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .history-details table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .history-details th,
+  .history-details td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .history-details th {
+    background-color: #f4f4f4;
+  }
+  
+  .history-details a {
+    color: blue;
+    text-decoration: underline;
+  }
+  
+  .history-details button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .history-details button:hover {
+    background-color: #0056b3;
+  }
+  
